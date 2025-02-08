@@ -7,6 +7,15 @@ const connectDB = require("./config/db");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static('public'))
+app.set("view engine", "ejs");
+
+
+// Serve landing page at "/"
+app.get("/", (req, res) => {
+    res.render("index", { title: "Energy Usage Tracker" });
+});
+
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 

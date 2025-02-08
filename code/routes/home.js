@@ -15,7 +15,7 @@ router.post("/", authMiddleware, async (req, res) => {
         const userPrompt = `
         Analyze the following weekly energy usage and provide a summary with tips:
         ${JSON.stringify(usageData)}
-        Suggest ways to reduce energy consumption effectively.
+        Suggest ways to reduce energy consumption effectively.2
         `;
 
         const response = await axios.post(
