@@ -3,14 +3,14 @@ const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 const axios = require("axios");
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-// GET - Home Page
+
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 router.get("/", (req, res) => {
     res.render("home", { userId: "user", days: daysOfWeek, analysis: null });
 });
 
-// POST - Home Form Submission
+
 let lastAnalysis = "";
 router.post("/", async (req, res) => {
     try {
@@ -29,13 +29,13 @@ router.post("/", async (req, res) => {
         console.log(response.data);
         const analysisText = response.data.candidates[0].content.parts[0].text;
 
-        // Parse the analysis text into structured data
+
         const analysis = parseAnalysis(analysisText);
 
-        // Store the analysis in lastAnalysis
+
         lastAnalysis = analysis;
 
-        // Send a flag for redirection
+
         res.json({ redirect: true, url: "/home/result" });
 
     } catch (error) {
@@ -50,7 +50,6 @@ router.get("/result", (req, res) => {
 
 module.exports = router;
 
-// Helper function to parse the analysis text into structured data
 function parseAnalysis(text) {
     const summaryStart = text.indexOf("**Summary:**");
     const reasonsStart = text.indexOf("**Possible Reasons for High Weekend Usage:**");
